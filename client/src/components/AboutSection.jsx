@@ -26,7 +26,7 @@ const features = [
 
 export default function AboutSection() {
   return (
-    <section className="about-section" aria-labelledby="about-heading">
+    <section id="about" className="about-section" aria-labelledby="about-heading">
       <div className="content-wrap">
         <div className="about-header">
           <div className="about-eyebrow">What is LaunchBoard?</div>

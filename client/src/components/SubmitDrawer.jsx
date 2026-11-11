@@ -211,9 +211,6 @@ export default function SubmitDrawer({ isOpen, onClose, onSubmitSuccess }) {
       aria-labelledby="submit-drawer-title"
     >
       <div className="submit-modal-panel" ref={panelRef}>
-        {/* Mobile grab handle */}
-        <div className="drawer-grab-handle" aria-hidden="true" />
-
         {/* Header */}
         <div className="drawer-header">
           <div>
@@ -346,7 +343,7 @@ export default function SubmitDrawer({ isOpen, onClose, onSubmitSuccess }) {
             </div>
 
             {/* Builder Name & Email Grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 'var(--space-16)' }}>
+            <div className="form-row-2col">
               <div className="form-group">
                 <label htmlFor="student_name" className="form-label">
                   Your name <span style={{ color: 'var(--accent)' }}>*</span>
@@ -390,7 +387,7 @@ export default function SubmitDrawer({ isOpen, onClose, onSubmitSuccess }) {
             </div>
 
             {/* Cohort & Category */}
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 'var(--space-16)' }}>
+            <div className="form-row-2col">
               <div className="form-group">
                 <label htmlFor="cohort" className="form-label">
                   Cohort

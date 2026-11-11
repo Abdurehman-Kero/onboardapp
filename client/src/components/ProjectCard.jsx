@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Heart, ExternalLink, Github } from 'lucide-react';
-import { getDeterministicGradient, getInitials } from '../utils.js';
+import { Heart, ExternalLink, Github, ArrowUpRight } from 'lucide-react';
+import { getDeterministicGradient, getInitials, formatDate } from '../utils.js';
 
 const STATUS_LABELS = {
   live: 'Live',
@@ -52,6 +52,7 @@ export default function ProjectCard({
         style={{ background: bg }}
         aria-hidden="true"
       >
+        <div className="card-thumbnail-pattern" />
         <span className="thumbnail-initials" style={{ color }}>
           {initials}
         </span>
@@ -83,7 +84,10 @@ export default function ProjectCard({
 
       {/* ── Card Body ── */}
       <div className="card-body">
-        <h3 className="card-title">{project.title}</h3>
+        <div className="card-title-row">
+          <h3 className="card-title">{project.title}</h3>
+          <ArrowUpRight size={16} className="card-open-arrow" aria-hidden="true" />
+        </div>
         <p className="card-tagline" title={project.tagline}>
           {project.tagline}
         </p>
@@ -111,7 +115,10 @@ export default function ProjectCard({
               <span className="builder-name" title={project.student_name}>
                 {project.student_name}
               </span>
-              <span className="builder-cohort">{project.cohort || 'Cohort 1'}</span>
+              <span className="builder-cohort">
+                {project.cohort || 'Cohort 1'}
+                {project.created_at ? ` · ${formatDate(project.created_at)}` : ''}
+              </span>
             </div>
           </div>
 

@@ -85,9 +85,6 @@ export default function DetailsModal({
       aria-labelledby="modal-project-title"
     >
       <div className="modal-dialog" ref={dialogRef}>
-        {/* Mobile grab handle */}
-        <div className="modal-grab-handle" aria-hidden="true" />
-
         {/* Sticky Header */}
         <div className="modal-header">
           <div className="modal-header-left">
@@ -108,6 +105,7 @@ export default function DetailsModal({
         <div className="modal-scroll-body">
           {/* Hero Banner with deterministic gradient */}
           <div className="details-hero-banner" style={{ background: bg }} aria-hidden="true">
+            <div className="card-thumbnail-pattern" />
             <span className="details-hero-initials" style={{ color }}>
               {initials}
             </span>

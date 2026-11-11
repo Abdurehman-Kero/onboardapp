@@ -63,7 +63,8 @@ export default function Hero({ stats, onOpenSubmit }) {
           </div>
 
           <h1 id="hero-title" className="hero-title">
-            Where bootcamp<br className="hero-title-break" />
+            Where bootcamp{' '}
+            <br className="hero-title-break" />
             projects go live.
           </h1>
 

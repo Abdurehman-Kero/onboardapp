@@ -3,7 +3,7 @@ import React from 'react';
 export default function SkeletonCard() {
   return (
     <div className="skeleton-card" aria-hidden="true">
-      {/* 168px Thumbnail matching real card anatomy */}
+      {/* 148px Thumbnail matching real card anatomy */}
       <div className="skeleton-thumb">
         <div className="skeleton-badge-status" />
         <div className="skeleton-badge-category" />
@@ -35,7 +35,10 @@ export default function SkeletonCard() {
               <div className="skeleton-line builder-cohort" />
             </div>
           </div>
-          <div className="skeleton-like-pill" />
+          <div className="skeleton-footer-actions">
+            <div className="skeleton-github-pill" />
+            <div className="skeleton-like-pill" />
+          </div>
         </div>
       </div>
     </div>

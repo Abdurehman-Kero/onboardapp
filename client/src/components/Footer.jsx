@@ -1,5 +1,5 @@
 import React from 'react';
-import { Rocket, Github, Twitter, Mail } from 'lucide-react';
+import { Rocket, Github, Twitter } from 'lucide-react';
 
 export default function Footer() {
   return (
