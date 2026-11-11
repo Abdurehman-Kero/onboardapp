@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { X, ExternalLink, Github, Heart, Copy, Check, UserCheck } from 'lucide-react';
+import { X, ExternalLink, Github, Heart, Copy, Check, UserCheck, Calendar, Tag } from 'lucide-react';
 import { getDeterministicGradient, getInitials, formatDate } from '../utils.js';
 
 export default function DetailsModal({
@@ -21,7 +21,6 @@ export default function DetailsModal({
       previouslyFocusedElementRef.current = document.activeElement;
       document.body.classList.add('drawer-open');
 
-      // Shift focus to close button
       setTimeout(() => {
         closeBtnRef.current?.focus();
       }, 50);
@@ -86,9 +85,14 @@ export default function DetailsModal({
       aria-labelledby="modal-project-title"
     >
       <div className="modal-dialog" ref={dialogRef}>
+        {/* Mobile grab handle */}
+        <div className="modal-grab-handle" aria-hidden="true" />
+
         {/* Sticky Header */}
         <div className="modal-header">
-          <span className="modal-header-title">Project Details</span>
+          <div className="modal-header-left">
+            <span className="modal-header-title">Project Details</span>
+          </div>
           <button
             type="button"
             className="drawer-close-btn"
@@ -109,7 +113,7 @@ export default function DetailsModal({
             </span>
           </div>
 
-          {/* Badges */}
+          {/* Badges row */}
           <div className="details-meta-badges">
             <span className={`card-status-badge status-${project.status}`}>
               {project.status === 'live' && <span className="live-dot" aria-hidden="true" />}
@@ -118,6 +122,11 @@ export default function DetailsModal({
             <span className="card-category-tag" style={{ position: 'static' }}>
               {project.category}
             </span>
+            {project.cohort && (
+              <span className="details-cohort-badge">
+                {project.cohort}
+              </span>
+            )}
           </div>
 
           {/* Heading Order: H2 for project title inside modal */}
@@ -125,6 +134,16 @@ export default function DetailsModal({
             {project.title}
           </h2>
           <p className="details-tagline">{project.tagline}</p>
+
+          {/* Meta info row */}
+          <div className="details-meta-row">
+            {project.created_at && (
+              <span className="details-meta-item">
+                <Calendar size={13} aria-hidden="true" />
+                Submitted {formatDate(project.created_at)}
+              </span>
+            )}
+          </div>
 
           {/* Section: About */}
           <h3 className="details-section-label">About the project</h3>
@@ -135,6 +154,7 @@ export default function DetailsModal({
           <div className="details-tech-grid" aria-label="Technologies used">
             {(project.tech_stack || []).map((tech) => (
               <span key={tech} className="details-tech-tag">
+                <Tag size={11} aria-hidden="true" />
                 {tech}
               </span>
             ))}
@@ -150,15 +170,16 @@ export default function DetailsModal({
               <div className="details-builder-meta">
                 <div className="details-builder-name">{project.student_name}</div>
                 <div className="details-builder-sub">
-                  {project.cohort || 'Cohort 1'} &bull; Submitted {formatDate(project.created_at)}
+                  {project.cohort || 'Cohort 1'}
                 </div>
               </div>
             </div>
-            <UserCheck size={18} style={{ color: 'var(--ink-muted)' }} aria-hidden="true" />
+            <UserCheck size={18} style={{ color: 'var(--ink-muted)', flexShrink: 0 }} aria-hidden="true" />
           </div>
 
-          {/* Action Buttons with Direct Live Link Navigation */}
+          {/* Action Buttons */}
           <div className="details-actions-bar">
+            {/* Primary: Visit + GitHub — full width on mobile */}
             <div className="details-primary-actions">
               {project.live_url && (
                 <a
@@ -186,6 +207,7 @@ export default function DetailsModal({
               </a>
             </div>
 
+            {/* Secondary: Copy link + Like */}
             <div className="details-utility-actions">
               <button
                 type="button"

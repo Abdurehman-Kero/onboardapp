@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
-import { Heart, ExternalLink } from 'lucide-react';
+import { Heart, ExternalLink, Github } from 'lucide-react';
 import { getDeterministicGradient, getInitials } from '../utils.js';
+
+const STATUS_LABELS = {
+  live: 'Live',
+  building: 'Building',
+  idea: 'Idea',
+};
 
 export default function ProjectCard({
   project,
@@ -38,9 +44,9 @@ export default function ProjectCard({
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
-      aria-label={`Open details modal for ${project.title}`}
+      aria-label={`Open details for ${project.title}`}
     >
-      {/* Thumbnail area with deterministic gradient */}
+      {/* ── Thumbnail ── */}
       <div
         className="card-thumbnail"
         style={{ background: bg }}
@@ -50,10 +56,10 @@ export default function ProjectCard({
           {initials}
         </span>
 
-        {/* Category tag */}
+        {/* Category */}
         <span className="card-category-tag">{project.category}</span>
 
-        {/* Status badge - If live and has live_url, acts as a direct redirect link */}
+        {/* Status badge — live ones link directly */}
         {project.status === 'live' && project.live_url ? (
           <a
             href={project.live_url}
@@ -66,23 +72,23 @@ export default function ProjectCard({
           >
             <span className="live-dot" aria-hidden="true" />
             <span>live</span>
-            <ExternalLink size={12} aria-hidden="true" className="card-live-icon" />
+            <ExternalLink size={11} aria-hidden="true" className="card-live-icon" />
           </a>
         ) : (
           <span className={`card-status-badge status-${project.status}`}>
-            <span>{project.status}</span>
+            <span>{STATUS_LABELS[project.status] || project.status}</span>
           </span>
         )}
       </div>
 
-      {/* Card Content Body */}
+      {/* ── Card Body ── */}
       <div className="card-body">
         <h3 className="card-title">{project.title}</h3>
         <p className="card-tagline" title={project.tagline}>
           {project.tagline}
         </p>
 
-        {/* Tech Chips */}
+        {/* Tech chips */}
         <div className="card-tech-chips" aria-label="Technology stack">
           {displayTags.map((tech) => (
             <span key={tech} className="tech-chip">
@@ -90,12 +96,13 @@ export default function ProjectCard({
             </span>
           ))}
           {extraTagsCount > 0 && (
-            <span className="tech-chip more">+{extraTagsCount}</span>
+            <span className="tech-chip more">+{extraTagsCount} more</span>
           )}
         </div>
 
-        {/* Footer */}
+        {/* ── Card Footer ── */}
         <div className="card-footer">
+          {/* Builder info */}
           <div className="builder-info">
             <div className="builder-avatar" aria-hidden="true">
               {builderInitials}
@@ -108,23 +115,48 @@ export default function ProjectCard({
             </div>
           </div>
 
-          <button
-            type="button"
-            className={`like-btn ${isLiked ? 'liked' : ''} ${animateLike ? 'popping' : ''}`}
-            onClick={handleLikeClick}
-            onKeyDown={(e) => {
-              if (e.key === ' ' || e.key === 'Enter') {
-                e.stopPropagation();
-                handleLikeClick(e);
+          {/* Right side: GitHub shortcut + Like */}
+          <div className="card-footer-actions">
+            {project.github_url && (
+              <a
+                href={project.github_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="card-github-btn"
+                onClick={(e) => e.stopPropagation()}
+                aria-label={`View ${project.title} on GitHub (opens in new tab)`}
+                title="View source on GitHub"
+              >
+                <Github size={15} aria-hidden="true" />
+              </a>
+            )}
+
+            <button
+              type="button"
+              className={`like-btn ${isLiked ? 'liked' : ''} ${animateLike ? 'popping' : ''}`}
+              onClick={handleLikeClick}
+              onKeyDown={(e) => {
+                if (e.key === ' ' || e.key === 'Enter') {
+                  e.stopPropagation();
+                  handleLikeClick(e);
+                }
+              }}
+              aria-pressed={isLiked}
+              aria-label={
+                isLiked
+                  ? `Liked, ${project.likes} total likes`
+                  : `Like ${project.title}, ${project.likes} total likes`
               }
-            }}
-            aria-pressed={isLiked}
-            aria-label={isLiked ? `Liked, ${project.likes} total likes` : `Like ${project.title}, ${project.likes} total likes`}
-            title={isLiked ? 'Already liked' : 'Like this project'}
-          >
-            <Heart size={16} className={`like-icon ${animateLike ? 'pop' : ''}`} aria-hidden="true" />
-            <span>{project.likes}</span>
-          </button>
+              title={isLiked ? 'Already liked' : 'Like this project'}
+            >
+              <Heart
+                size={15}
+                className={`like-icon ${animateLike ? 'pop' : ''}`}
+                aria-hidden="true"
+              />
+              <span>{project.likes}</span>
+            </button>
+          </div>
         </div>
       </div>
     </article>
