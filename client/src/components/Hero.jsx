@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ArrowRight, Flame } from 'lucide-react';
+import { ArrowRight, Flame, Rocket } from 'lucide-react';
 
 function useCountUp(endValue, duration = 220) {
   const [count, setCount] = useState(0);
@@ -8,7 +8,6 @@ function useCountUp(endValue, duration = 220) {
   useEffect(() => {
     if (endValue === null || endValue === undefined || endValue === 0) return;
 
-    // Honor prefers-reduced-motion immediately
     const prefersReducedMotion =
       typeof window !== 'undefined' &&
       window.matchMedia &&
@@ -26,7 +25,6 @@ function useCountUp(endValue, duration = 220) {
     const step = (timestamp) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      // easeOutCubic
       const easedProgress = 1 - Math.pow(1 - progress, 3);
       setCount(Math.round(easedProgress * endValue));
 
@@ -53,19 +51,29 @@ export default function Hero({ stats, onOpenSubmit }) {
     <section className="hero-section" aria-labelledby="hero-title">
       <div className="content-wrap">
         <div className="hero-main">
+          {/* Eyebrow badge */}
           <div className="hero-tagline-badge">
             <Flame size={14} aria-hidden="true" />
             <span>NilePixel Cohort Showcase</span>
           </div>
 
+          {/* Logo mark (mobile-visible accent) */}
+          <div className="hero-logo-mark" aria-hidden="true">
+            <Rocket size={28} />
+          </div>
+
           <h1 id="hero-title" className="hero-title">
-            Where bootcamp projects go live.
+            Where bootcamp<br className="hero-title-break" />
+            projects go live.
           </h1>
 
           <p className="hero-subhead">
-            A public showcase celebrating student developers. Explore real applications, inspect repositories, and back upcoming talent.
+            A public showcase celebrating student developers at NilePixel.
+            Explore real applications, inspect repositories, and back
+            upcoming Ethiopian tech talent.
           </p>
 
+          {/* CTA buttons */}
           <div className="hero-cta-group">
             <button
               type="button"
@@ -83,6 +91,7 @@ export default function Hero({ stats, onOpenSubmit }) {
             </a>
           </div>
 
+          {/* Stats */}
           <div className="hero-stats-grid" role="region" aria-label="Showcase statistics">
             <div className="stat-tile">
               <div className="stat-number">{stats ? totalCount : '—'}</div>

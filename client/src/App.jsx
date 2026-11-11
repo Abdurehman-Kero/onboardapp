@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Header from './components/Header.jsx';
 import Hero from './components/Hero.jsx';
+import AboutSection from './components/AboutSection.jsx';
 import Toolbar from './components/Toolbar.jsx';
 import ProjectGrid from './components/ProjectGrid.jsx';
 import DetailsModal from './components/DetailsModal.jsx';
@@ -244,6 +245,9 @@ export default function App() {
       {/* Main Content */}
       <main id="main-content" tabIndex="-1">
         <Hero stats={stats} onOpenSubmit={() => setIsSubmitOpen(true)} />
+
+        {/* About section for first-time visitors */}
+        <AboutSection />
 
         <div className="content-wrap">
           <Toolbar

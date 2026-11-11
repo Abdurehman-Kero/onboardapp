@@ -202,7 +202,7 @@ export default function SubmitDrawer({ isOpen, onClose, onSubmitSuccess }) {
 
   return (
     <div
-      className="drawer-backdrop"
+      className="submit-modal-backdrop"
       onClick={(e) => {
         if (e.target === e.currentTarget && !isSubmitting) onClose();
       }}
@@ -210,21 +210,26 @@ export default function SubmitDrawer({ isOpen, onClose, onSubmitSuccess }) {
       aria-modal="true"
       aria-labelledby="submit-drawer-title"
     >
-      <div className="drawer-panel" ref={panelRef}>
+      <div className="submit-modal-panel" ref={panelRef}>
         {/* Mobile grab handle */}
         <div className="drawer-grab-handle" aria-hidden="true" />
 
         {/* Header */}
         <div className="drawer-header">
-          <h2 id="submit-drawer-title" className="drawer-header-title">
-            Submit Your Project
-          </h2>
+          <div>
+            <h2 id="submit-drawer-title" className="drawer-header-title">
+              Submit Your Project
+            </h2>
+            <p className="drawer-header-sub">
+              Share your creation with the NilePixel community
+            </p>
+          </div>
           <button
             type="button"
             className="drawer-close-btn"
             onClick={onClose}
             disabled={isSubmitting}
-            aria-label="Close submit project drawer"
+            aria-label="Close submit project form"
           >
             <X size={20} />
           </button>
